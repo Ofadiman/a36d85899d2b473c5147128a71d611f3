@@ -1,0 +1,71 @@
+version: '3.7'
+
+services:
+  server:
+    container_name: server
+    image: ofadiman/server:1.0.0
+    build:
+      context: .
+      dockerfile: ./dev.Dockerfile
+      # Pass arguments to specified dockerfile.
+      args:
+        - uid=$UID
+        - gid=$GID
+        - user=$USER
+    volumes:
+      - .:/app
+    # Map port 3002 (first) on local machine to port 3002 (second) inside the container.
+    ports:
+      - 3002:3002
+    # Those services will start first.
+    depends_on:
+      - pg-dev
+      - pg-test
+      - pg-admin
+    # `links` allows to reference services by their names (e.g. `postgres-dev`) instead of ip addresses.
+    links:
+      - pg-dev
+      - pg-test
+    working_dir: /app
+    command: yarn start-dev
+    environment:
+      POSTGRES_DATABASE: postgres
+      POSTGRES_HOST: pgdev
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: postgres
+      POSTGRES_TEST_DATABASE: postgres
+      POSTGRES_TEST_HOST: pgtest
+      POSTGRES_TEST_PASSWORD: postgres
+      POSTGRES_TEST_PORT: 5432
+      POSTGRES_TEST_USER: postgres
+      SERVER_PORT: 3002
+
+  pg-dev:
+    container_name: pg-dev
+    image: library/postgres:13.1-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+
+  pg-test:
+    container_name: pg-test
+    image: library/postgres:13.1-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+
+  pg-admin:
+    container_name: pg-admin
+    links:
+      - pg-dev
+      - pg-test
+    image: dpage/pgadmin4:4.29
+    environment:
+      PGADMIN_DEFAULT_EMAIL: postgres@email.com
+      PGADMIN_DEFAULT_PASSWORD: postgres
+      PGADMIN_LISTEN_PORT: 8080
+    ports:
+      - 8080:8080
