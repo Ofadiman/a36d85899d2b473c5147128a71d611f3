@@ -1,3 +1,15 @@
 {
-  "extends": ["@ofadiman/eslint-config-node"]
+  "extends": ["@ofadiman/eslint-config-node"],
+  "rules": {
+    "default-case": "off",
+    "consistent-return": "off"
+  },
+  "overrides": [
+    {
+      "files": ["*.spec.ts"],
+      "rules": {
+        "@typescript-eslint/no-unsafe-assignment": "off"
+      }
+    }
+  ]
 }
