@@ -1,8 +1,11 @@
 {
   "extends": ["@ofadiman/eslint-config-node"],
   "rules": {
+    "consistent-return": "off",
     "default-case": "off",
-    "consistent-return": "off"
+    "jest/no-conditional-expect": "off",
+    "promise/avoid-new": "off",
+    "unicorn/no-useless-undefined": "off"
   },
   "overrides": [
     {
