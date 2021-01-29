@@ -1,6 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
 
+import { Roles } from '../roles/enums/roles.enum'
+import { testUtils } from './test-utils/users.service.spec.utils'
 import { User } from './user.entity'
 import { UsersService } from './users.service'
 
@@ -13,7 +15,10 @@ describe('UsersService', () => {
         UsersService,
         {
           provide: getRepositoryToken(User),
-          useValue: {}
+          useValue: {
+            findOne: testUtils.mocks.findOne,
+            save: testUtils.mocks.save
+          }
         }
       ]
     }).compile()
@@ -21,7 +26,40 @@ describe('UsersService', () => {
     usersService = module.get<UsersService>(UsersService)
   })
 
-  it('should be defined', () => {
-    expect(usersService).toBeDefined()
+  describe('getOne', () => {
+    const testUser = testUtils.fn.getUser({ role: Roles.Basic })
+
+    test('should return user', async () => {
+      testUtils.mocks.findOne.mockReturnValueOnce(testUser)
+
+      const findOneOptions = { where: { email: testUser.email } }
+      const user = await usersService.getOne(findOneOptions)
+
+      expect(user).toEqual(testUser)
+      expect(testUtils.mocks.findOne).toHaveBeenCalledWith(findOneOptions)
+    })
+
+    test('should return `undefined` if no user matches given condition', async () => {
+      testUtils.mocks.findOne.mockReturnValueOnce(undefined)
+
+      const findOneOptions = { where: { email: testUser.email } }
+      const user = await usersService.getOne(findOneOptions)
+
+      expect(user).toBeUndefined()
+      expect(testUtils.mocks.findOne).toHaveBeenCalledWith(findOneOptions)
+    })
+  })
+
+  describe('createOne', () => {
+    const passwordHash = 'afb13sajgbifoiugb3'
+    const testUser = testUtils.fn.getUser({ passwordHash, role: Roles.Basic })
+
+    test('should save user', async () => {
+      testUtils.mocks.save.mockReturnValueOnce(testUser)
+
+      const user = await usersService.createOne(testUtils.dto.createOneUserDto)
+
+      expect(user).toEqual(testUser)
+    })
   })
 })
