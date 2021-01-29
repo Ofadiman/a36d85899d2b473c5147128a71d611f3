@@ -16,6 +16,7 @@
     "start-prod": "node dist/main",
     "syncpack-format": "syncpack format",
     "test": "jest --watch --config jest.config.js",
+    "test-ci": "jest --config jest.config.js",
     "typeorm": "ts-node --require tsconfig-paths/register node_modules/typeorm/cli.js"
   },
   "dependencies": {

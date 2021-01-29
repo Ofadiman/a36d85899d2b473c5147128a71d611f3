@@ -21,7 +21,6 @@ services:
     depends_on:
       - pg-dev
       - pg-test
-      - pg-admin
     # `links` allows to reference services by their names (e.g. `postgres-dev`) instead of ip addresses.
     links:
       - pg-dev
