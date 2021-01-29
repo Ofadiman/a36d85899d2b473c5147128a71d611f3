@@ -17,7 +17,7 @@ describe('${nestModuleConst.plop.name.pascalCase}Controller', () => {
     ${nestModuleConst.plop.name.camelCase}Controller = module.get<${nestModuleConst.plop.name.pascalCase}Controller>(${nestModuleConst.plop.name.pascalCase}Controller)
   })
 
-  it('should be defined', () => {
+  test('should be defined', () => {
     expect(${nestModuleConst.plop.name.camelCase}Controller).toBeDefined()
   })
 })

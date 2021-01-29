@@ -23,7 +23,7 @@ describe('${nestModuleConst.plop.name.pascalCase}Service', () => {
     ${nestModuleConst.plop.name.camelCase}Service = module.get<${nestModuleConst.plop.name.pascalCase}Service>(${nestModuleConst.plop.name.pascalCase}Service)
   })
 
-  it('should be defined', () => {
+  test('should be defined', () => {
     expect(${nestModuleConst.plop.name.camelCase}Service).toBeDefined()
   })
 })

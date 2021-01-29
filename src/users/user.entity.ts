@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany } from 'typeorm'
 
 import { Base } from '../database/utils/base.entity'
+import { Movie } from '../movies/movie.entity'
 import { Role } from '../roles/role.entity'
 
 @Entity({ name: 'users' })
@@ -22,4 +23,7 @@ export class User extends Base {
 
   @OneToMany(() => Role, (role: Role) => role.user)
   public roles: Role[]
+
+  @OneToMany(() => Movie, (movie: Movie) => movie.user)
+  public movies: Movie[]
 }
