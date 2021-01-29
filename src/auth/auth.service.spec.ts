@@ -1,3 +1,4 @@
+import { JwtService } from '@nestjs/jwt'
 import { Test, TestingModule } from '@nestjs/testing'
 import bcrypt from 'bcrypt'
 
@@ -17,6 +18,10 @@ describe('AuthService', () => {
         {
           provide: UsersService,
           useValue: testUtils.mocks.usersService
+        },
+        {
+          provide: JwtService,
+          useValue: {}
         }
       ]
     }).compile()
