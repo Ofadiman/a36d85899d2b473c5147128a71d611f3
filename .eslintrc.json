@@ -10,6 +10,18 @@
       "rules": {
         "@typescript-eslint/no-unsafe-assignment": "off"
       }
+    },
+    {
+      "files": ["src/database/migrations/*"],
+      "rules": {
+        "@typescript-eslint/explicit-member-accessibility": "off",
+        "prettier/prettier": [
+          "error",
+          {
+            "tabWidth": 4
+          }
+        ]
+      }
     }
   ]
 }

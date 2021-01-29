@@ -6,7 +6,7 @@ export const commonDatabaseConfig = {
     migrationsDir: 'src/database/migrations'
   },
   entities: [`dist/**/*.entity.js`],
-  migrations: [`dist/database/migrations/*.js`],
+  migrations: [`dist/src/database/migrations/*.js`],
   namingStrategy: new SnakeNamingStrategy(),
   subscribers: [`dist/**/*.subscribers.js`],
   synchronize: false,

@@ -15,7 +15,8 @@
     "start-dev": "rimraf dist && nest start --watch",
     "start-prod": "node dist/main",
     "syncpack-format": "syncpack format",
-    "test": "jest --watch --config jest.config.js"
+    "test": "jest --watch --config jest.config.js",
+    "typeorm": "ts-node --require tsconfig-paths/register node_modules/typeorm/cli.js"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
