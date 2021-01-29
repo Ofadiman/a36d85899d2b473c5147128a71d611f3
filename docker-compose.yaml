@@ -32,12 +32,12 @@ services:
       - ./.env.development
     environment:
       POSTGRES_DEV_DATABASE: postgres
-      POSTGRES_DEV_HOST: pgdev
+      POSTGRES_DEV_HOST: pg-dev
       POSTGRES_DEV_PASSWORD: postgres
       POSTGRES_DEV_PORT: 5432
       POSTGRES_DEV_USER: postgres
       POSTGRES_TEST_DATABASE: postgres
-      POSTGRES_TEST_HOST: pgtest
+      POSTGRES_TEST_HOST: pg-test
       POSTGRES_TEST_PASSWORD: postgres
       POSTGRES_TEST_PORT: 5432
       POSTGRES_TEST_USER: postgres
