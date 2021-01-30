@@ -31,7 +31,7 @@ const createOneUserDto: CreateOneUserDto = {
 
 const getRole = ({ name, user }: GetRoleOptions): Role => {
   const role = new Role()
-  role.user = user
+  role.users = [user]
   role.name = name
 
   return role

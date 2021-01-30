@@ -59,7 +59,7 @@ The compose command will start several services:
 
 ```shell
 docker-compose exec server bash
-yarn typeorm migration:run
+yarn run typeorm migration:run -t false
 ```
 
 Now you are all set! You can log in as an already existing user.
@@ -162,7 +162,7 @@ The API currently exposes 4 endpoints.
 ### POST /api/v1/movies
 
 - Description: Create a new movie.
-- Authorization method: Bearer <token>
+- Authorization method: Bearer token
 
 - Example request body structure
 
@@ -207,7 +207,7 @@ The API currently exposes 4 endpoints.
 ### GET /api/v1/movies
 
 - Description: Get all movies for a user.
-- Authorization method: Bearer <token>
+- Authorization method: Bearer token
 
 - Example response structure
 

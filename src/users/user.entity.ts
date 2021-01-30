@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany } from 'typeorm'
+import { Column, Entity, JoinTable, ManyToMany, OneToMany } from 'typeorm'
 
 import { Base } from '../database/utils/base.entity'
 import { Movie } from '../movies/movie.entity'
@@ -21,7 +21,8 @@ export class User extends Base {
   @Column()
   public passwordHash: string
 
-  @OneToMany(() => Role, (role: Role) => role.user, { cascade: ['insert', 'remove', 'update'], eager: true })
+  @ManyToMany(() => Role, (role: Role) => role.users, { cascade: ['insert', 'remove', 'update'], eager: true })
+  @JoinTable()
   public roles: Role[]
 
   @OneToMany(() => Movie, (movie: Movie) => movie.user)

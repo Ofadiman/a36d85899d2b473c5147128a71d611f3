@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
 
 import { Roles } from '../roles/enums/roles.enum'
+import { Role } from '../roles/role.entity'
 import { testUtils } from './test-utils/users.service.spec.utils'
 import { User } from './user.entity'
 import { UsersService } from './users.service'
@@ -19,6 +20,12 @@ describe('UsersService', () => {
             create: testUtils.mocks.create,
             findOne: testUtils.mocks.findOne,
             save: testUtils.mocks.save
+          }
+        },
+        {
+          provide: getRepositoryToken(Role),
+          useValue: {
+            findOne: jest.fn().mockName('findOne')
           }
         }
       ]

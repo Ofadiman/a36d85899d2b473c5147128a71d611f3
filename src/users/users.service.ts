@@ -9,7 +9,10 @@ import { User } from './user.entity'
 
 @Injectable()
 export class UsersService {
-  public constructor(@InjectRepository(User) private readonly usersRepository: Repository<User>) {}
+  public constructor(
+    @InjectRepository(User) private readonly usersRepository: Repository<User>,
+    @InjectRepository(Role) private readonly rolesRepository: Repository<Role>
+  ) {}
 
   public async getOne(options: FindOneOptions<User>): Promise<User | undefined> {
     return this.usersRepository.findOne(options)
@@ -17,10 +20,16 @@ export class UsersService {
 
   public async createOne(createOneUserDto: CreateOneUserDto): Promise<User> {
     const user = this.usersRepository.create(createOneUserDto)
-    const basicRole = new Role()
-    basicRole.name = Roles.Basic
-    basicRole.user = user
-    user.roles = [basicRole]
+    const basicRole = await this.rolesRepository.findOne({ where: { name: Roles.Basic } })
+    if (basicRole) {
+      user.roles = [basicRole]
+    } else {
+      const newRole = new Role()
+      newRole.name = Roles.Basic
+      newRole.users = [user]
+
+      user.roles = [newRole]
+    }
 
     return this.usersRepository.save(user)
   }

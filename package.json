@@ -18,7 +18,8 @@
     "test": "jest --watch --config jest.config.js",
     "test-ci": "jest --config jest.config.js",
     "test-collect-coverage": "jest --config jest.config.js --collect-coverage",
-    "typeorm": "ts-node --require tsconfig-paths/register node_modules/typeorm/cli.js"
+    "typeorm": "ts-node --require tsconfig-paths/register node_modules/typeorm/cli.js",
+    "typeorm-migrations": "yarn run typeorm migration:run -t false"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
