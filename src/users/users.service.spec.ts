@@ -16,6 +16,7 @@ describe('UsersService', () => {
         {
           provide: getRepositoryToken(User),
           useValue: {
+            create: testUtils.mocks.create,
             findOne: testUtils.mocks.findOne,
             save: testUtils.mocks.save
           }
@@ -52,14 +53,17 @@ describe('UsersService', () => {
 
   describe('createOne', () => {
     const passwordHash = 'afb13sajgbifoiugb3'
-    const testUser = testUtils.fn.getUser({ passwordHash, role: Roles.Basic })
+    const testUser = testUtils.fn.getUser({ passwordHash })
 
     test('should save user', async () => {
+      testUtils.mocks.create.mockReturnValueOnce(testUser)
       testUtils.mocks.save.mockReturnValueOnce(testUser)
 
       const user = await usersService.createOne(testUtils.dto.createOneUserDto)
 
       expect(user).toEqual(testUser)
+      expect(testUtils.mocks.create).toHaveBeenCalledWith(testUtils.dto.createOneUserDto)
+      expect(testUtils.mocks.save).toHaveBeenCalledWith(testUser)
     })
   })
 })
