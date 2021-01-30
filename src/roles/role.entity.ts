@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne } from 'typeorm'
+import { Column, Entity, ManyToMany } from 'typeorm'
 
 import { Base } from '../database/utils/base.entity'
 import { User } from '../users/user.entity'
@@ -9,6 +9,6 @@ export class Role extends Base {
   @Column({ default: Roles.Basic })
   public name: Roles
 
-  @ManyToOne(() => User, (user: User) => user.roles)
-  public user: User
+  @ManyToMany(() => User, (user: User) => user.roles)
+  public users: User[]
 }
