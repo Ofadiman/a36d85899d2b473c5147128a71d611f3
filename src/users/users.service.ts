@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { FindOneOptions, Repository } from 'typeorm'
 
+import { Roles } from '../roles/enums/roles.enum'
+import { Role } from '../roles/role.entity'
 import { CreateOneUserDto } from './dto/create-one-user.dto'
 import { User } from './user.entity'
 
@@ -14,6 +16,16 @@ export class UsersService {
   }
 
   public async createOne(createOneUserDto: CreateOneUserDto): Promise<User> {
-    return this.usersRepository.save(createOneUserDto)
+    const user = this.usersRepository.create(createOneUserDto)
+    const basicRole = new Role()
+    basicRole.name = Roles.Basic
+    basicRole.user = user
+    user.roles = [basicRole]
+
+    return this.usersRepository.save(user)
+  }
+
+  public getUserSubscriptionStatus(user: User): boolean {
+    return user.roles.some(({ name }) => name === Roles.Premium)
   }
 }

@@ -21,7 +21,7 @@ export class User extends Base {
   @Column()
   public passwordHash: string
 
-  @OneToMany(() => Role, (role: Role) => role.user)
+  @OneToMany(() => Role, (role: Role) => role.user, { cascade: ['insert', 'remove', 'update'], eager: true })
   public roles: Role[]
 
   @OneToMany(() => Movie, (movie: Movie) => movie.user)

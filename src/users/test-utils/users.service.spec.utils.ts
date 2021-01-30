@@ -4,10 +4,11 @@ import { Role } from '../../roles/role.entity'
 import { CreateOneUserDto } from '../dto/create-one-user.dto'
 import { User } from '../user.entity'
 
-type GetTestUserOptions = { dto?: Partial<RegisterUserDto>; passwordHash?: string; role: Roles }
+type GetTestUserOptions = { dto?: Partial<RegisterUserDto>; passwordHash?: string; role?: Roles }
 type GetRoleOptions = { name: Roles; user: User }
 
 const mocks = {
+  create: jest.fn().mockName('create'),
   findOne: jest.fn().mockName('findOne'),
   save: jest.fn().mockName('save')
 }
@@ -38,9 +39,10 @@ const getRole = ({ name, user }: GetRoleOptions): Role => {
 
 const getUser = ({ dto, role, passwordHash }: GetTestUserOptions): User => {
   const user = new User()
-  const userRole = getRole({ name: role, user })
-  user.roles = [userRole]
-
+  if (role !== undefined) {
+    const userRole = getRole({ name: role, user })
+    user.roles = [userRole]
+  }
   user.id = 51
   user.email = dto?.email ?? registerUserDto.email
   user.firstName = dto?.firstName ?? registerUserDto.firstName
