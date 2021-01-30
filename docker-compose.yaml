@@ -30,6 +30,8 @@ services:
     env_file:
       - ./.env.development
     environment:
+      JWT_EXPIRES_IN: 1h
+      JWT_ISS: https://www.netguru.com/
       POSTGRES_DEV_DATABASE: postgres
       POSTGRES_DEV_HOST: pg-dev
       POSTGRES_DEV_PASSWORD: postgres

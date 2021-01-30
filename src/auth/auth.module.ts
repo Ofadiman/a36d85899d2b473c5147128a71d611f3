@@ -25,7 +25,10 @@ import { LocalStrategy } from './strategies/local.strategy'
       useFactory: async (configService: ConfigService) => {
         return {
           secret: configService.get(EnvironmentVariables.JwtSecret),
-          signOptions: { expiresIn: configService.get(EnvironmentVariables.JwtExpiresIn) }
+          signOptions: {
+            expiresIn: configService.get(EnvironmentVariables.JwtExpiresIn),
+            issuer: configService.get(EnvironmentVariables.JwtIss)
+          }
         }
       }
     })
