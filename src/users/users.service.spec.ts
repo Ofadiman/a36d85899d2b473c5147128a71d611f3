@@ -66,4 +66,20 @@ describe('UsersService', () => {
       expect(testUtils.mocks.save).toHaveBeenCalledWith(testUser)
     })
   })
+
+  describe('hasPremium', () => {
+    test('should return "true" if user has premium account', () => {
+      const testUser = testUtils.fn.getUser({ role: Roles.Premium })
+
+      const hasPremium = usersService.hasPremium(testUser)
+      expect(hasPremium).toEqual(true)
+    })
+
+    test('should return "false" if user does not have premium account', () => {
+      const testUser = testUtils.fn.getUser({ role: Roles.Basic })
+
+      const hasPremium = usersService.hasPremium(testUser)
+      expect(hasPremium).toEqual(false)
+    })
+  })
 })

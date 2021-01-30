@@ -25,7 +25,7 @@ export class UsersService {
     return this.usersRepository.save(user)
   }
 
-  public getUserSubscriptionStatus(user: User): boolean {
+  public hasPremium(user: User): boolean {
     return user.roles.some(({ name }) => name === Roles.Premium)
   }
 }
