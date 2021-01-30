@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common'
+import { Body, Controller, Get, Post } from '@nestjs/common'
 
 import { GetUser } from '../auth/decorators/get-user.decorator'
 import { User } from '../users/user.entity'
@@ -14,5 +14,10 @@ export class MoviesController {
   @Post()
   public async createOne(@GetUser() user: User, @Body() createOneMovieDto: CreateOneMovieDto): Promise<Movie> {
     return this.moviesService.createOne(user, createOneMovieDto)
+  }
+
+  @Get()
+  public async getAll(@GetUser() user: User): Promise<Movie[]> {
+    return this.moviesService.getAll(user)
   }
 }

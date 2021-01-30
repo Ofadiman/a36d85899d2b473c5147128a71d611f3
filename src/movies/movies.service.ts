@@ -39,6 +39,10 @@ export class MoviesService {
     throw new ExceededMaximumMoviesPerMonthException()
   }
 
+  public async getAll(user: User): Promise<Movie[]> {
+    return this.moviesRepository.createQueryBuilder('movies').where('movies.user_id = :id', { id: user.id }).getMany()
+  }
+
   private async fetchOmdbMovieData(title: string): Promise<OmdbResponse> {
     const apiKey = this.configService.get(EnvironmentVariables.OmdbApiKey)
 
