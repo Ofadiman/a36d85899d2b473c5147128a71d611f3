@@ -4,10 +4,16 @@ const usersService = {
 }
 
 const authService = {
+  login: jest.fn().mockName('login'),
   registerUser: jest.fn().mockName('registerUser')
+}
+
+const jwtService = {
+  sign: jest.fn().mockName('sign')
 }
 
 export const mocks = {
   authService,
+  jwtService,
   usersService
 }
