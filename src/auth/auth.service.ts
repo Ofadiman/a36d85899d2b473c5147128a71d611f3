@@ -2,7 +2,6 @@ import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { compare, hash } from 'bcrypt'
 
-import { UserNotFoundException } from '../users/exceptions/user-not-found.exception'
 import { User } from '../users/user.entity'
 import { UsersService } from '../users/users.service'
 import { LoginResponseDto } from './dto/login-response.dto'
@@ -46,13 +45,13 @@ export class AuthService {
   public async getAuthenticatedUserById(userId: number): Promise<User> {
     const user = await this.usersService.getOne({ where: { id: userId } })
     if (!user) {
-      throw new UserNotFoundException()
+      throw new UnauthorizedException()
     }
 
     return user
   }
 
-  public async verifyPassword(plainTextPassword: string, passwordHash: string): Promise<void> {
+  private async verifyPassword(plainTextPassword: string, passwordHash: string): Promise<void> {
     const isPasswordMatching = await compare(plainTextPassword, passwordHash)
 
     if (!isPasswordMatching) {

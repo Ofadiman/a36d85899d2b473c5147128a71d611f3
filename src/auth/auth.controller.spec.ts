@@ -27,4 +27,13 @@ describe('AuthController', () => {
 
     expect(testUtils.mocks.authService.registerUser).toHaveBeenCalledWith(testUtils.dto.registerUserDto)
   })
+
+  test('should handle user login', async () => {
+    const loginResponse = { token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiO', user: testUtils.entities.user }
+    testUtils.mocks.authService.login.mockReturnValueOnce(loginResponse)
+    const response = await authController.login(testUtils.entities.user)
+
+    expect(testUtils.mocks.authService.login).toHaveBeenCalledWith(testUtils.entities.user)
+    expect(response).toEqual(loginResponse)
+  })
 })
