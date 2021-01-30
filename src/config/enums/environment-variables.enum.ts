@@ -1,5 +1,6 @@
 export enum EnvironmentVariables {
   JwtExpiresIn = 'JWT_EXPIRES_IN',
+  JwtIss = 'JWT_ISS',
   JwtSecret = 'JWT_SECRET',
   NodeEnv = 'NODE_ENV',
   OmdbApiKey = 'OMDB_API_KEY',

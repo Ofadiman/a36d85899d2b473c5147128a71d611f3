@@ -12,6 +12,7 @@ import { EnvironmentVariables } from './enums/environment-variables.enum'
       isGlobal: true,
       validationSchema: object({
         [EnvironmentVariables.JwtExpiresIn]: required(),
+        [EnvironmentVariables.JwtIss]: required(),
         [EnvironmentVariables.JwtSecret]: required(),
         [EnvironmentVariables.OmdbApiKey]: required(),
         [EnvironmentVariables.PostgresDevDatabase]: required(),
