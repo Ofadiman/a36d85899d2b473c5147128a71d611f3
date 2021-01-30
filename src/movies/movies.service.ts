@@ -24,7 +24,7 @@ export class MoviesService {
   public async createOne(user: User, createOneMovieDto: CreateOneMovieDto): Promise<Movie> {
     const omdbData = await this.fetchOmdbMovieData(createOneMovieDto.title)
     const totalUserMoviesThisMonth = await this.getTotalUserMoviesThisMonth(user.id)
-    const hasPremium = this.usersService.getUserSubscriptionStatus(user)
+    const hasPremium = this.usersService.hasPremium(user)
     const canCreateMovie = totalUserMoviesThisMonth < 5 || hasPremium
 
     if (canCreateMovie) {
